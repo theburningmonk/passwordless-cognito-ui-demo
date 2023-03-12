@@ -13,6 +13,7 @@
     "@aws-amplify/ui-vue": "^3.1.10",
     "autoprefixer": "^10",
     "aws-amplify": "^5.0.18",
+    "chance": "^1.1.11",
     "postcss": "^8",
     "tailwindcss": "^3",
     "vue": "^3.2.47",

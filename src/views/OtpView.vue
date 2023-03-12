@@ -3,34 +3,30 @@ import { ref } from 'vue'
 import { Auth } from 'aws-amplify'
 import Nav from '../components/NavComponent.vue'
 import Footer from '../components/FooterComponent.vue'
+import Chance from 'chance'
 
 const email = ref('')
-const password = ref('')
-const verificationCode = ref('')
 const secretCode = ref('')
-const signUpStep = ref('SIGN_UP')
 const signInStep = ref('SIGN_IN')
 const attemptsLeft = ref(0)
+const isSignedUp = ref(false)
 const isSignedIn = ref(false)
 let cognitoUser
 
 async function signUp() {
   try {
+    const chance = new Chance()
+    const password = chance.string({ length: 16 })
     const signInResult = await Auth.signUp({
       username: email.value,
-      password: password.value,
+      password
     })
     console.log(signInResult.user)
 
-    signUpStep.value = 'CONFIRM'    
+    isSignedUp.value = true
   } catch (error) {
     alert(error.message)
   }
-}
-
-async function confirmUser() {
-  const result = await Auth.confirmSignUp(cognitoUser.username, verificationCode.value)
-  console.log(result)
 }
 
 async function signIn() {
@@ -86,37 +82,22 @@ async function signOut() {
 
       <div class="w-1/2 flex-row mb-10">
         <h2 class="font-semibold text-xl">Step 1. register a user (if you haven't already)</h2>
-        <p>Password requirements: 8 chars (lower case, number, upper case + symbol)</p>
 
         <input 
+          v-if="!isSignedUp"
           v-model="email" 
           type="text"
           class="mt-2 w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           placeholder="Email address">
-        <input 
-          v-model="password" 
-          type="password"
-          class="mt-1 w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-          placeholder="Password">
-        <input 
-          v-if="signUpStep === 'CONFIRM'"
-          v-model="verificationCode" 
-          type="text"
-          class="mt-1 w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-          placeholder="Verification code (check email)">
 
         <button 
-          v-if="signUpStep === 'SIGN_UP'"
+          v-if="!isSignedUp"
           @click="signUp" 
           class="mt-2 py-2 px-4 border border-transparent font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           Create user
         </button>
-        <button 
-          v-if="signUpStep === 'CONFIRM'"
-          @click="confirmUser"
-          class="mt-2 py-2 px-4 border border-transparent font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-          Confirm user
-        </button>
+
+        <p v-if="isSignedUp">Great, the user has been created in Cognito.</p>
       </div>
 
       <div class="w-1/2 flex-row mb-10">
