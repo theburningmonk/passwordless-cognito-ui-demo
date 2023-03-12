@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { Auth } from 'aws-amplify'
+import Nav from '../components/NavComponent.vue'
 
 const email = ref('')
 const password = ref('')
@@ -76,6 +77,8 @@ async function signOut() {
 </script>
 
 <template>
+  <Nav/>
+  
   <h1 class="font-bold text-4xl mb-12">Passwordless OTP demo with Cognito</h1>
 
   <div class="w-1/2 flex-row mb-10">

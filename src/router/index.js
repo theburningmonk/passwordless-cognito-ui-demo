@@ -1,18 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import RootView from '../views/RootView.vue'
-import AuthMiddleware from './auth.guard'
+import OtpView from '../views/OtpView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'Root',
-      component: RootView
-    }
+      redirect: '/otp'
+    },
+    {
+      path: '/otp',
+      name: 'OTP',
+      component: OtpView
+    },
   ]
 })
-
-router.beforeEach(AuthMiddleware)
 
 export default router
