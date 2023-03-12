@@ -78,8 +78,8 @@ async function signOut() {
 
 <template>
   <Nav/>
-  
-  <h1 class="font-bold text-4xl mb-12">Passwordless OTP demo with Cognito</h1>
+
+  <h1 class="font-bold text-4xl mb-12">Passwordless login with OTP with Cognito</h1>
 
   <div class="w-1/2 flex-row mb-10">
     <h2 class="font-semibold text-xl">Step 1. register a user (if you haven't already)</h2>
