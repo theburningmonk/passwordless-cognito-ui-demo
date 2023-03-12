@@ -66,7 +66,7 @@ async function answerCustomChallenge() {
 }
 
 async function signOut() {
-  await Auth.signOut({ global: true })
+  await Auth.signOut()
   cognitoUser = null
   secretCode.value = ''
   isSignedIn.value = false
