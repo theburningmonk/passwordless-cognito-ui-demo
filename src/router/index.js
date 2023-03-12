@@ -13,6 +13,11 @@ const router = createRouter({
       name: 'OTP',
       component: OtpView
     },
+    {
+      path: '/magic-link',
+      name: 'MagicLink',
+      component: () => import('../views/MagicLinkView.vue')
+    }
   ]
 })
 
