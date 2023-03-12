@@ -90,7 +90,7 @@ async function signOut() {
   await Auth.signOut()
   cognitoUser = null
   isSignedIn.value = false
-  signInStep.value = 'SIGN_IN'
+  signInStep.value = 'SEND_MAGIC_LINK'
 
   console.log(await Auth.currentUserInfo())
 }
