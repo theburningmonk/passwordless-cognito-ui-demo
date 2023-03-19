@@ -73,16 +73,10 @@ async function answerCustomChallenge(token) {
     const challengeResult = await Auth.sendCustomChallengeAnswer(cognitoUser, token)
     console.log('challenge result')
     console.log(challengeResult)
-
-    if (challengeResult.challengeName) {
-      alert(`The token is invalid.`)
-    } else {      
-      isSignedIn.value = true    
-    }
   } catch (error) {
     console.log(error)
     signInStep.value = 'SIGN_IN'
-    alert('Failed to sign in. Please try again.')
+    alert(`The token is invalid.`)
   }  
 }
 
